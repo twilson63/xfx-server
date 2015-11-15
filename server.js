@@ -16,7 +16,7 @@ var http = require('http')
 
 var server = http.createServer((req, res) => {
   // handle /owner/folder as /owner/folder/index.html
-  if (!~req.url.indexOf('.')) req.url = req.url + '/index.html'
+  //if (!~req.url.indexOf('.')) req.url = req.url + '/index.html'
   db.query('web/urls',{ key: req.url }).then((result) => {
     //console.log(result)
     if (result.rows && result.rows[0]) {
