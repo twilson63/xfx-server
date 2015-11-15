@@ -14,5 +14,9 @@
     "mime-types": "^2.1.7",
     "pouchdb": "^5.1.0",
     "send-data": "^8.0.0"
+  },
+  "engines": {
+    "node": "^5.x",
+    "npm": "^3.x"
   }
 }
