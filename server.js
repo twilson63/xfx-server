@@ -12,30 +12,11 @@ PouchDB.sync(db, remoteDb, {
   retry: true
 })
 
-db.putIfNotExists('_design/web', {
-    language: 'javascript',
-    views: {
-      urls: {
-        map: function (doc) {
-          var url = '/' + doc.profile.nickname
-          if (doc.type === 'document') {
-            if (doc.parent) {
-              url +=  '/' + doc.parent
-            }
-            url += '/' + doc.name
-          }
-          emit(url, doc.body)
-        }.toString()
-      }
-    }
-  }, function (err, result) {
-  if (err) return console.log(err)
-  console.log(result)
-})
-
 var http = require('http')
 
 var server = http.createServer((req, res) => {
+  // handle /owner/folder as /owner/folder/index.html
+  if (!~req.url.indexOf('.')) req.url = req.url + '/index.html'
   db.query('web/urls',{ key: req.url }).then((result) => {
     //console.log(result)
     if (result.rows && result.rows[0]) {
