@@ -17,7 +17,9 @@ var http = require('http')
 var server = http.createServer((req, res) => {
   // allow for subdomain.w3foo.com/index.html
   // to equal /[project]/index.html
-  
+  if (req.url === '/') {
+    req.url = '/index.html'
+  }
   if (process.env.NODE === 'production') {
     project = req.headers.host.split('.')[0]
     req.url = '/' + project + req.url
